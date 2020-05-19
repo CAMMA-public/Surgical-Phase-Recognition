@@ -1,0 +1,31 @@
+# id : 225
+# tag: phase ID limited finetuning f0_tr_n20_2
+
+default              : &DEFAULT
+  dir_checkpoints      : "./checkpoints/ckpt_042/" # ImageNet pretrained
+  data_dir             : "cholec120/frame_tfrecords"
+  id_split             : 0
+  no_drop              : 1
+  train_restrict       : "f0_tr_n20_2"
+  aug_rot_angle        : 16
+  aug_n_offset         : 32
+  n_batch              : 1
+  n_minibatch          : 32
+  n_classes            : 8
+  n_epochs             : 27
+  n_parallel           : 8
+  n_shuffle_buffer     : 840
+  n_hard_shuffle_buffer: 3072
+  n_interleave_cycle   : 8
+  n_interleave_block   : 4
+  n_prefetch           : 4
+  n_resize             : 224
+  ini_fc               : 0.1
+  n_cnn_outputs        : 2048
+  train_vars           : ["block3", "block4", "postnorm", "fc"]
+  regularize           : ["block3", "block4", "postnorm", "fc"]
+  weight_decay         : 0.0005
+  learning_rate        : 0.00005
+  batch_norm_decay     : 0.9
+  batch_norm_epsilon   : 0.00001
+  batch_norm_scale     : 1

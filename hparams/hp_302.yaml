@@ -1,0 +1,22 @@
+# id: 302
+# tag: LSTM phase ID f0
+
+default: &DEFAULT
+  data_dir        : "cholec120/extractions/extraction_043"
+  id_split        : 0
+  n_epochs        : 350
+  n_batch         : 1
+  n_minibatch     : 10000
+  no_drop         : 1
+  n_parallel      : 8
+  n_shuffle_buffer: 120
+  n_prefetch      : 4
+  n_features      : 2048
+  n_classes       : 8
+  ini_fc          : 0.1
+  ini_lstm        : 0.03
+  n_state         : 64
+  n_lstm_layers   : 1
+  learning_rate   : 0.0001
+  dropout_lstm    : 0.4
+  weight_decay    : 0.0005
