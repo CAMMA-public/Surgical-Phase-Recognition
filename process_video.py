@@ -18,14 +18,15 @@ def phase_recognition(vidpath):
   predictions = temporal_forward_pass(features)
   return predictions
 
-def phase_plot(predictions):
-  fig = plt.figure()
+def phase_plot(phases):
+  fig = plt.figure(figsize=(10, 2))
   ax = fig.add_subplot(111)
-  ax.pcolormesh(predictions)
+  ax.set_yticks([], [])
+  ax.pcolormesh(phases, cmap="Set2")
 
 def extract_frames(vidpath):
   res = extract_raw_frames(vidpath)
-  res = [preprocess(r) for r in res]
+  res = preprocess(res)
   return res
 
 def extract_raw_frames(vidpath):
@@ -38,10 +39,12 @@ def extract_raw_frames(vidpath):
   flag = True
   while flag:
     flag, frame = vidcap.read()
-    if frame is not None and count % FPS == 0:
-      res.append(frame)
+    if frame is not None:
+      if count % FPS == 0:
+        res.append(frame)
     else:
       break
+    count += 1
   vidcap.release()
   return res
 
@@ -50,12 +53,11 @@ def preprocess(frames):
   w_in = frames[0].shape[1]
   center = w_in / 2
   radius = h_in / 2
-  w_left = center - radius
-  w_right = center + radius
+  w_left = int(center - radius)
+  w_right = int(center + radius)
   frames = [
-    cv2.resize(
-      f[:, w_left:w_right, :], [N_H, N_W]) / 255.0
-      for f in frames
+    cv2.resize(f[:, w_left:w_right, :], (N_H, N_W)) / 255.0
+    for f in frames
   ]
   return frames
 
@@ -64,7 +66,7 @@ def cnn_forward_pass(frames):
   features = []
   hp = gh.parse_hp("hparams/hp_225.yaml")
   m = ConvNet(hp)
-  inp = tf.placeholder(dtype=tf.float32)
+  inp = tf.placeholder(dtype=tf.float32, shape=[None, N_H, N_W, 3])
   out = m.forward_pass(inp)
   with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
@@ -77,17 +79,19 @@ def cnn_forward_pass(frames):
         fetches,
         feed_dict={
           m.fetches["train_flag"]: False,
-          inp: tf.expand_dims(f)
+          inp: np.expand_dims(f, axis=0)
         }
       )
       features.append(ret["features"])
-  pass
+  return features
 
 def temporal_forward_pass(features):
+  tf.reset_default_graph()
   hp = gh.parse_hp("hparams/hp_302.yaml")
   m = TmpNet(hp)
-  n_t = features.shape[0]
-  out = m.forward_pass(features)
+  n_t = len(features)
+  features_in = np.concatenate(features)
+  out = m.forward_pass(features_in)
   out = tf.expand_dims(out, 0)
   labels = tf.zeros(shape=[1, n_t], dtype=tf.int32)
   _, transition_matrix = tf.contrib.crf.crf_log_likelihood(
