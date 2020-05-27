@@ -1,3 +1,4 @@
 checkpoints/**
 videos/**
 .vscode/**
+**__pycache__**
