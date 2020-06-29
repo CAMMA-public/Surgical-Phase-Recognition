@@ -18,24 +18,24 @@ def phase_recognition(vidpath):
   predictions = temporal_forward_pass(features)
   return predictions
 
+
 def phase_plot(phases):
   fig = plt.figure(figsize=(10, 2))
   ax = fig.add_subplot(111)
   ax.set_yticks([], [])
   ax.pcolormesh(phases, cmap="Set2")
 
+
 def extract_frames(vidpath):
   res = extract_raw_frames(vidpath)
   res = preprocess(res)
   return res
 
+
 def extract_raw_frames(vidpath):
   res = []
   count = 0
   vidcap = cv2.VideoCapture(vidpath)
-  n_frames = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
-  h = int(vidcap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-  w = int(vidcap.get(cv2.CAP_PROP_FRAME_WIDTH))
   flag = True
   while flag:
     flag, frame = vidcap.read()
@@ -48,6 +48,7 @@ def extract_raw_frames(vidpath):
   vidcap.release()
   return res
 
+
 def preprocess(frames):
   h_in = frames[0].shape[0]
   w_in = frames[0].shape[1]
@@ -56,10 +57,11 @@ def preprocess(frames):
   w_left = int(center - radius)
   w_right = int(center + radius)
   frames = [
-    cv2.resize(f[:, w_left:w_right, :], (N_H, N_W)) / 255.0
+    cv2.resize(f[:, w_left:w_right, ::-1], (N_H, N_W)) / 255.0
     for f in frames
   ]
   return frames
+
 
 def cnn_forward_pass(frames):
   tf.reset_default_graph()
@@ -67,7 +69,7 @@ def cnn_forward_pass(frames):
   hp = gh.parse_hp("hparams/hp_225.yaml")
   m = ConvNet(hp)
   inp = tf.placeholder(dtype=tf.float32, shape=[None, N_H, N_W, 3])
-  out = m.forward_pass(inp)
+  _ = m.forward_pass(inp)
   with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     m.load_pretrained_resnet(sess, "checkpoints/cnn/cnn.ckpt")
@@ -84,6 +86,7 @@ def cnn_forward_pass(frames):
       )
       features.append(ret["features"])
   return features
+
 
 def temporal_forward_pass(features):
   tf.reset_default_graph()
