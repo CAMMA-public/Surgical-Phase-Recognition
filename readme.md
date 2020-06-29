@@ -22,6 +22,8 @@ The underlying deep neural network is a stack of:
 - Bidirectional LSTM
 - Linear-chain CRF
 
+![model](visuals/model.png)
+
 Training was performed on 80 videos from *cholec120*, a superset of the publicly released *cholec80* dataset.
 
 On a test set of 30 videos from *cholec120*, accuracy reaches **89.5%**. Average F1 score over all 7 phases reaches **82.5%**.
