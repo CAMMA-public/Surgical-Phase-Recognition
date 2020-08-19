@@ -1,4 +1,7 @@
-from ruamel_yaml import YAML
+try:
+  from ruamel_yaml import YAML
+except ModuleNotFoundError:
+  from ruamel.yaml import YAML
 from pprint import pprint
 
 

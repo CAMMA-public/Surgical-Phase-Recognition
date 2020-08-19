@@ -1,7 +1,10 @@
 import tensorflow as tf
 from tensorflow.python.client import device_lib
 import datetime
-from ruamel_yaml import YAML
+try:
+  from ruamel_yaml import YAML
+except ModuleNotFoundError:
+  from ruamel.yaml import YAML
 import subprocess as subp
 import logging
 import os
