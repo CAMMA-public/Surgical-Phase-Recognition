@@ -50,11 +50,15 @@ On a test set of 30 videos from *cholec120*, accuracy reaches **89.5%**. Average
 - matplotlib
 - ruamel_yaml
 
+## Citation
+```bibtex
+@inproceedings{yu2019surgicalphase,
+title = {Learning from a tiny dataset of manual annotations: a teacher/student approach for surgical phase recognition},
+author = {Tong Yu, Didier Mutter, Jacques Marescaux, Nicolas Padoy},
+booktitle = {International Conference on Information Processing in Computer-Assisted Interventions},
+year = {2019}
+}
+```
+
 ## License
 This code may be used for **non-commercial scientific research purposes** as defined in the [LICENSE file](LICENSE). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party codes are subject to their respective licenses.
-
-## Citation
-
-*Learning from a tiny dataset of manual annotations: a teacher/student approach for surgical phase recognition* -  Tong Yu, Didier Mutter, Jacques Marescaux, Nicolas Padoy - IPCAI 2019
-
-[Link](https://arxiv.org/abs/1812.00033)
