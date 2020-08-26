@@ -1,9 +1,7 @@
-# *** id          : 17
-# *** tag         : CNN
-# *** precursors  : 4
-# *** architecture: resnet_v2_50
-# *** input_size  : [n_minibatch, 224, 224, 3]
-# *** output_size : [n_outputs]
+'''
+Author: Tong Yu
+CAMMA - University of Strasbourg
+'''
 
 import tensorflow as tf
 from tensorflow.contrib import slim

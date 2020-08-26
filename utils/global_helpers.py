@@ -1,3 +1,8 @@
+'''
+Author: Tong Yu
+CAMMA - University of Strasbourg
+'''
+
 import tensorflow as tf
 from tensorflow.python.client import device_lib
 import datetime

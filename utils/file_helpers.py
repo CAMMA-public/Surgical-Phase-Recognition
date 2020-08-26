@@ -1,3 +1,8 @@
+'''
+Author: Tong Yu
+CAMMA - University of Strasbourg
+'''
+
 try:
   from ruamel_yaml import YAML
 except ModuleNotFoundError:

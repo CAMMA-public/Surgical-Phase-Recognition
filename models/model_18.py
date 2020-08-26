@@ -1,9 +1,7 @@
-# *** id          : 18
-# *** tag         : biLSTM
-# *** precursors  : 8
-# *** architecture: biLSTM; 1 dense layer
-# *** input_size  : [n_minibatch, 224, 224, 3]
-# *** output_size : [n_outputs]
+'''
+Author: Tong Yu
+CAMMA - University of Strasbourg
+'''
 
 import tensorflow as tf
 import utils.global_helpers as gh
