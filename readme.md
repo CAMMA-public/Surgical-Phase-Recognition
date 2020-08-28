@@ -10,10 +10,10 @@ Demo notebook for laparoscopic cholecystectomy phase recognition using a CNN-biL
 -------------------
 **Learning from a tiny dataset of manual annotations: a teacher/student approach for surgical phase recognition (IPCAI 2019)**
 
-[![arXiv](https://img.shields.io/badge/arxiv-1812.00033-red)](https://arxiv.org/abs/1812.00033)
-[![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1UwWwA-HlGJUrLI_e9C0sZAjVBMRF1aKW?usp=sharing)
-
 _Tong Yu, Didier Mutter, Jacques Marescaux, Nicolas Padoy_
+
+[![arXiv](https://img.shields.io/badge/arxiv-1812.00033-red)](https://arxiv.org/abs/1812.00033)
+[![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/CAMMA-public/Surgical-Phase-Recognition/blob/master/phase_recognition_demo_colab.ipynb)
 
 ## Description
 
