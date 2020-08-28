@@ -53,7 +53,7 @@ On a test set of 30 videos from *cholec120*, accuracy reaches **89.5%**. Average
 Developer configuration info:
 - Ubuntu 20.04
 - CUDA 10.1
-- NVIDIA GTX1080Ti GPU.
+- NVIDIA GTX1080Ti GPU
 
 ## Citation
 ```bibtex
