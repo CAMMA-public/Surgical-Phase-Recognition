@@ -1,3 +1,8 @@
+'''
+Author: Tong Yu
+Copyright (c) University of Strasbourg. All Rights Reserved.
+'''
+
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt

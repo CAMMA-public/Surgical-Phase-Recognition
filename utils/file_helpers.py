@@ -1,6 +1,6 @@
 '''
 Author: Tong Yu
-CAMMA - University of Strasbourg
+Copyright (c) University of Strasbourg. All Rights Reserved.
 '''
 
 try:
