@@ -55,6 +55,10 @@ Developer configuration info:
 - CUDA 10.1
 - NVIDIA GTX1080Ti GPU
 
+## TF-Cholec80
+
+A version of the notebook using [TF-Cholec80]() is also available (`phase_recognition_demo_tfc.ipynb`).
+
 ## Citation
 ```bibtex
 @inproceedings{yu2019surgicalphase,

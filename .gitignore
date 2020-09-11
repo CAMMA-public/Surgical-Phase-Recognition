@@ -2,3 +2,6 @@ checkpoints/**
 videos/**
 .vscode/**
 **__pycache__**
+phase_recognition_example**
+.ipynb_checkpoints/**
+dbg_cnn_ds.py

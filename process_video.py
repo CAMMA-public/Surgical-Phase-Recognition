@@ -24,6 +24,13 @@ def phase_recognition(vidpath):
   return predictions
 
 
+def phase_recognition_ds(frames):
+  pp_frames = preprocess_ds(frames)
+  features = cnn_forward_pass_ds(pp_frames)
+  predictions = temporal_forward_pass(features)
+  return predictions
+
+
 def phase_plot(phases):
   fig = plt.figure(figsize=(10, 2))
   ax = fig.add_subplot(111)
@@ -93,12 +100,49 @@ def cnn_forward_pass(frames):
   return features
 
 
+def preprocess_ds(frames):
+  h_in = frames.shape[1]
+  w_in = frames.shape[2]
+  center = w_in // 2
+  radius = h_in // 2
+  w_left = center - radius
+  w_right = center + radius
+  frames = tf.image.convert_image_dtype(frames, tf.float32)
+  frames = tf.image.resize(
+    frames[:, :, w_left:w_right, :],
+    [N_H, N_W]
+  ) 
+  return frames
+
+def cnn_forward_pass_ds(frames):
+  features = []
+  hp = gh.parse_hp("hparams/hp_225.yaml")
+  m = ConvNet(hp)
+  _ = m.forward_pass(frames)
+  with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    m.load_pretrained_resnet(sess, "checkpoints/cnn/cnn.ckpt")
+    fetches = {
+      "features": m.fetches["cnn_output"]
+    }
+    while True:
+      try:
+        ret = sess.run(
+          fetches,
+          feed_dict={m.fetches["train_flag"]: False}
+        )
+        features.append(ret["features"])
+      except tf.errors.OutOfRangeError:
+        break
+  return features
+
+
 def temporal_forward_pass(features):
   tf.reset_default_graph()
   hp = gh.parse_hp("hparams/hp_302.yaml")
   m = TmpNet(hp)
-  n_t = len(features)
   features_in = np.concatenate(features)
+  n_t = features_in.shape[0]
   out = m.forward_pass(features_in)
   out = tf.expand_dims(out, 0)
   labels = tf.zeros(shape=[1, n_t], dtype=tf.int32)

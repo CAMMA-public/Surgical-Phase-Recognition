@@ -14,7 +14,9 @@ class Model:
 
   def __init__(self, hp):
     self._hp              = hp
-    self._train_flag      = tf.placeholder_with_default(True, [], name="train_flag")
+    self._train_flag      = tf.placeholder_with_default(
+      tf.constant(True), shape=[], name="train_flag"
+    )
     self._fetches         = {}
     self._fc_w = tf.get_variable(
       "fc_w",
