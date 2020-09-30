@@ -57,7 +57,7 @@ Developer configuration info:
 
 ## TF-Cholec80
 
-A version of the notebook using [TF-Cholec80]() is also available (`phase_recognition_demo_tfc.ipynb`).
+[TF-Cholec80](https://github.com/CAMMA-public/TF-Cholec80) provides a user-friendly interface for manipulating [a dataset of cholecystectomy recordings](http://camma.u-strasbg.fr/datasets) we previously released. A phase recognition demo using it is available in this repo: (`phase_recognition_demo_tfc.ipynb`).
 
 ## Citation
 ```bibtex
